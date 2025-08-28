@@ -52,7 +52,7 @@ class ZipCode {
         int zipCode = this.Zip;
         int lastDigit = zipCode % 10;
         String barCode = "";
-        while (lastDigit != 0) {
+        for (int i = 1; i <= 5; i++) {
             switch (lastDigit) {
                 case 1 -> barCode = "00011" +  barCode;
                 case 2 -> barCode = "00101" +  barCode;
@@ -63,6 +63,7 @@ class ZipCode {
                 case 7 -> barCode = "10001" +  barCode;
                 case 8 -> barCode = "10010" +  barCode;
                 case 9 -> barCode = "10100" +  barCode;
+                case 0 -> barCode = "11000" +  barCode;
             }
             zipCode /= 10;
             lastDigit = zipCode % 10;
