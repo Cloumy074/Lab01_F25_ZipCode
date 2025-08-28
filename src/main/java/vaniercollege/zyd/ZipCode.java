@@ -8,6 +8,10 @@ package vaniercollege.zyd;
 class ZipCode {
     int Zip;
 
+    /**
+     * Constructor for Zip Code input
+     * @param input given Zip Code
+     */
     public ZipCode(int input) {
         String temp = Integer.toString(input);
         this.Zip = input;
@@ -17,6 +21,10 @@ class ZipCode {
         }
     }
 
+    /**
+     * Constructor for Bar Code input
+     * @param input given Bar Code
+     */
     public ZipCode(String input) {
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) != '0' && input.charAt(i) != '1') {
@@ -49,6 +57,10 @@ class ZipCode {
         this.Zip = parseBarCode(barcode);
     }
 
+    /**
+     * Parse the Zip Code into it's corresponded Bar Code
+     * @return the Bar Code as String
+     */
     public String GetBarCode() {
         int zipCode = this.Zip;
         int lastDigit = zipCode % 10;
@@ -73,6 +85,11 @@ class ZipCode {
         return String.format("1%s1", barCode);
     }
 
+    /**
+     * Parse the given Bar Code into it's corresponded Zip Code
+     * @param input the given Bar Code
+     * @return the corresponded Zip Code
+     */
     private int parseBarCode(String input) {
         String result = "";
 
