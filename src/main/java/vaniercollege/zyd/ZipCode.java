@@ -10,7 +10,7 @@ class ZipCode {
 
     public ZipCode(int input) {
         String temp = Integer.toString(input);
-        
+
         if (temp.length() > 5) {
             System.out.println(temp + " zip code is more than 5 digits");
         } else {
@@ -49,24 +49,48 @@ class ZipCode {
     }
 
     public String GetBarCode() {
-        return "";
+        int zipCode = this.Zip;
+        int lastDigit = zipCode % 10;
+        String barCode = "";
+        while (lastDigit != 0) {
+            switch (lastDigit) {
+                case 1 -> barCode = "00011" +  barCode;
+                case 2 -> barCode = "00101" +  barCode;
+                case 3 -> barCode = "00110" +  barCode;
+                case 4 -> barCode = "01001" +  barCode;
+                case 5 -> barCode = "01010" +  barCode;
+                case 6 -> barCode = "01100" +  barCode;
+                case 7 -> barCode = "10001" +  barCode;
+                case 8 -> barCode = "10010" +  barCode;
+                case 9 -> barCode = "10100" +  barCode;
+            }
+            zipCode /= 10;
+            lastDigit = zipCode % 10;
+        }
+        int currentDigit = barCode.length() / 5;
+        int missingDigit = 5 - currentDigit;
+        String missingZero = "";
+        for (int i = 0; i < missingDigit; i++) {
+            missingZero += "11000";
+        }
+        return String.format("1%s%s1", missingZero, barCode);
     }
     
     private int parseBarCode(String input) {
         String result = "";
-        for (int i = 4; i < input.length(); i+=5) {
-            String temp = input.substring(i - 4, i);
+        for (int i = 4; i < input.length(); i += 5) {
+            String temp = input.substring(i - 4, i + 1);
             switch (temp) {
-                case "11000" -> result += 0;
-                case "00011" -> result += 1;
-                case "00101" -> result += 2;
-                case "00110" -> result += 3;
-                case "01001" -> result += 4;
-                case "01010" -> result += 5;
-                case "01100" -> result += 6;
-                case "10001" -> result += 7;
-                case "10010" -> result += 8;
-                case "10100" -> result += 9;
+                case "11000" -> result += "0";
+                case "00011" -> result += "1";
+                case "00101" -> result += "2";
+                case "00110" -> result += "3";
+                case "01001" -> result += "4";
+                case "01010" -> result += "5";
+                case "01100" -> result += "6";
+                case "10001" -> result += "7";
+                case "10010" -> result += "8";
+                case "10100" -> result += "9";
             }
         }
         return Integer.parseInt(result);
